@@ -26,6 +26,7 @@ app.use(cookieParser());
 
 // Middleware: Routes
 app.use('/api/auth', authRoutes);
+
 app.use('/api/todo', taskRoutes);
 
 // Middleware: Serve static files
