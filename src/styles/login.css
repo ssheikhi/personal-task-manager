@@ -1,0 +1,103 @@
+/* Center the form on the page with a gradient background */
+body {
+  background: #6a11cb;
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(106, 17, 203, 1),
+    rgba(37, 117, 252, 1)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(106, 17, 203, 1),
+    rgba(37, 117, 252, 1)
+  );
+}
+/* Center the form on the page with a gradient background */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+/* Style the form */
+.login-form {
+  background: #222; /* Dark background for the form */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  max-width: 90%; /* Adjust width for smaller screens */
+  text-align: center;
+}
+
+/* Form title */
+.login-form h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Add subtitle below the title */
+.login-form p {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px; /* Add uniform spacing */
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+/* Focus state for inputs */
+.login-form input:focus {
+  outline: none;
+  border-color: #666; /* Highlight border on focus */
+}
+
+/* Button */
+.login-form button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.login-form button:hover {
+  background-color: white;
+  color: #222;
+  border: 1px solid #222;
+}
+
+/* Placeholder text color */
+.login-form input::placeholder {
+  color: #aaa;
+}
+
+/* Add optional text like "Forgot password" */
+.login-form .forgot-password {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-form .forgot-password:hover {
+  color: white;
+}

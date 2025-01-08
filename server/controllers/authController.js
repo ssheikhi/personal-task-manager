@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const createToken = require('../utility/token');
 
 // Controller for user signup
-exports.signup = async (req, res) => {
+exports.signup = async (req, res, next) => {
   const { name, email, password } = req.body;
   console.log('in signup', { name, email, password });
 
@@ -24,8 +24,8 @@ exports.signup = async (req, res) => {
 
     const newUser = new User({ name, email, password });
     await newUser.save();
-
-    res.status(201).json({ message: 'User created successfully' });
+    return next();
+    // res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     res
       .status(500)
@@ -33,8 +33,10 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Controller for user login
+// LOGIN
 exports.login = async (req, res) => {
+  console.log('in login');
+
   const { email, password } = req.body;
   console.log('in login', { email, password });
 
