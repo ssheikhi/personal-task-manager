@@ -102,3 +102,52 @@ button:nth-child(2) {
   background-color: #f44336; /* Red for Cancel/Delete */
   color: white;
 }
+/* Add Todo Button */
+.add-todo-button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-todo-button:hover {
+  background-color: #45a049;
+}
+
+/* Add Todo Form */
+.add-todo-form {
+  margin: 1rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 500px;
+}
+
+.add-todo-form input,
+.add-todo-form select,
+.add-todo-form button {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-todo-form button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.add-todo-form button:hover {
+  background-color: #0056b3;
+}
