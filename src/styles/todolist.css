@@ -4,7 +4,7 @@ body {
   padding: 0;
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple gradient */
-  /* min-height: 100vh; */
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,8 +12,8 @@ body {
 /* General container styling */
 .todo-container {
   margin: 2rem auto;
-  /* width: 90%;
-  max-width: 1200px; */
+  width: 90%;
+  max-width: 1200px;
   background: #f9f9f9;
   padding: 1.5rem;
   border-radius: 8px;
@@ -66,4 +66,39 @@ body {
   color: red;
   text-align: center;
   font-size: 14px;
+}
+
+input[type='text'],
+input[type='date'],
+select {
+  width: 100%;
+  padding: 0.4rem;
+  margin: 0.2rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+button {
+  padding: 0.4rem 0.8rem;
+  margin: 0.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  width: 70px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:nth-child(1) {
+  background-color: #4caf50; /* Green for Save */
+  color: white;
+}
+
+button:nth-child(2) {
+  background-color: #f44336; /* Red for Cancel/Delete */
+  color: white;
 }
