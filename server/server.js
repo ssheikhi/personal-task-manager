@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 // Import necessary modules
+require('dotenv').config({ path: './server/.env' }); // Adjust the path to point to your .env file
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
-
-require('dotenv').config();
 const app = express();
 
 // Connect to MongoDB
@@ -18,6 +19,7 @@ mongoose
   .catch((err) => console.error('Database connection error:', err));
 
 // Middleware: Parsing request body
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

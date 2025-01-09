@@ -65,6 +65,13 @@ body {
   border-color: #666; /* Highlight border on focus */
 }
 
+/* .login-form input:invalid {
+  border: 2px solid red;
+} */
+
+.login-form input:valid {
+  border: 2px solid green;
+}
 /* Button */
 .login-form button {
   background-color: transparent;

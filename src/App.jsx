@@ -1,16 +1,19 @@
-// import { useState } from 'react';
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
+/* eslint-disable no-unused-vars */
+
 import './styles/App.css';
 import Login from './components/login';
+import TodoList from './components/todoList';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
-    <>
-      <Login></Login>
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/todo-list' element={<TodoList />} />
+      </Routes>
+    </Router>
   );
 }
 
