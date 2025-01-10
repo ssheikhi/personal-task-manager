@@ -1,0 +1,82 @@
+.add-todo-container {
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+}
+
+.add-todo-form {
+  background-color: #1f1f1f;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px;
+}
+
+.add-todo-form input,
+.add-todo-form select {
+  /* width: 100%; */
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  background: #2a2a2a;
+  color: white;
+  font-size: 1rem;
+}
+
+.add-todo-form button {
+  margin: 0;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.add-todo-form button:hover {
+  background-color: #45a049;
+}
+
+/* Styling for the date input */
+input[type='date'] {
+  width: 94%; /* Adjust the width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #1f1f1f; /* Match the background of other inputs */
+  color: white;
+  font-size: 16px;
+  display: block; /* Ensure it takes up the full width */
+  margin-bottom: 1rem; /* Add some spacing below */
+}
+
+/* Styling for the dropdown */
+.react-dropdown {
+  width: 96%; /* Match the width of other inputs */
+  margin: 1rem auto; /* Add 1rem margin */
+}
+
+.react-dropdown .Dropdown-control {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #1f1f1f; /* Match the background of other inputs */
+  color: white;
+  font-size: 16px;
+  display: block;
+  width: 100%; /* Full width */
+}
+
+.react-dropdown .Dropdown-menu {
+  border-radius: 5px;
+  background-color: #1f1f1f;
+  color: white;
+  font-size: 16px;
+}

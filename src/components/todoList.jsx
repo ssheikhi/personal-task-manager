@@ -2,27 +2,60 @@
 import React, { useEffect, useState } from 'react';
 import config from '../config';
 import '../styles/todolist.css';
+import { useNavigate } from 'react-router-dom';
+
 const TodoList = () => {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [showAddForm, setShowAddForm] = useState(false); // To toggle the form
-  const [newTodo, setNewTodo] = useState({
-    title: '',
-    description: '',
-    status: 'pending',
-    deadline: '',
-  }); // For new todo
+  const navigate = useNavigate();
+  const userName = localStorage.getItem('userName');
+  console.log(userName);
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
+  const handleDeleteTodo = async (id) => {
+    console.log('in handle delete ', id);
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`${config.baseURL}/todo/${id}`, {
+        method: 'DELETE',
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      });
+      if (response.ok) {
+        setData(data.filter((todo) => todo._id !== id)); // Update local state
+        toast.success('Todo deleted successfully!', {
+          position: 'top-center',
+        });
+      } else {
+        const errorData = await response.json();
+        toast.error(`Failed to delete todo: ${errorData.message}`, {
+          position: 'top-center',
+        });
+      }
+    } catch (err) {
+      toast.error(
+        'An error occurred while deleting the todo. Please try again.',
+        {
+          position: 'top-center',
+        }
+      );
+    }
+  };
   const fetchTodos = async () => {
+    const token = localStorage.getItem('token');
+    console.log('in fetch data', token);
     try {
       const response = await fetch(`${config.baseURL}/todo`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (response.ok) {
         const todos = await response.json();
@@ -32,85 +65,16 @@ const TodoList = () => {
       }
     } catch (err) {
       console.error('Error fetching todos:', err);
-    } finally {
-      setLoading(false);
     }
   };
-
-  const handleAddTodo = async () => {
-    try {
-      const response = await fetch(`${config.baseURL}/todo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTodo),
-      });
-      if (response.ok) {
-        fetchTodos(); // Refetch todos after adding
-        setShowAddForm(false); // Close the form
-        setNewTodo({
-          title: '',
-          description: '',
-          status: 'pending',
-          deadline: '',
-        }); // Reset the form
-      } else {
-        console.error('Failed to add todo');
-      }
-    } catch (err) {
-      console.error('Error adding todo:', err);
-    }
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div className='todo-container'>
-      <h1>Your Todo List</h1>
-
+      <h1>Hi {userName}, here is your Todo List</h1>
       {/* Add New Todo Button */}
-      <button
-        className='add-todo-button'
-        onClick={() => setShowAddForm(!showAddForm)}
-      >
-        {showAddForm ? 'Close Form' : 'Add New Todo'}
+      <button className='add-todo-button' onClick={() => navigate('/add-todo')}>
+        Add New Todo
       </button>
-
-      {/* Add New Todo Form */}
-      {showAddForm && (
-        <div className='add-todo-form'>
-          <input
-            type='text'
-            placeholder='Title'
-            value={newTodo.title}
-            onChange={(e) => setNewTodo({ ...newTodo, title: e.target.value })}
-          />
-          <input
-            type='text'
-            placeholder='Description'
-            value={newTodo.description}
-            onChange={(e) =>
-              setNewTodo({ ...newTodo, description: e.target.value })
-            }
-          />
-          <select
-            value={newTodo.status}
-            onChange={(e) => setNewTodo({ ...newTodo, status: e.target.value })}
-          >
-            <option value='pending'>Pending</option>
-            <option value='in-progress'>In Progress</option>
-            <option value='completed'>Completed</option>
-          </select>
-          <input
-            type='date'
-            value={newTodo.deadline}
-            onChange={(e) =>
-              setNewTodo({ ...newTodo, deadline: e.target.value })
-            }
-          />
-          <button onClick={handleAddTodo}>Add Todo</button>
-        </div>
-      )}
 
       {/* Todo List Table */}
       <table className='todo-table'>
@@ -134,7 +98,19 @@ const TodoList = () => {
               <td>{new Date(todo.createdAt).toLocaleDateString()}</td>
               <td>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        'Are you sure you want to delete this todo?'
+                      )
+                    ) {
+                      handleDeleteTodo(todo._id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

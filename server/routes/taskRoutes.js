@@ -1,13 +1,15 @@
 /* eslint-disable no-undef */
 const express = require('express');
 const taskController = require('../controllers/taskController');
+const authenticate = require('../middleware/authenticate');
+
 const router = express.Router();
 
 // Route to get all tasks
-router.get('/', taskController.getAllTasks);
+router.get('/', authenticate, taskController.getAllTasks);
 
 // Route to create a task
-router.post('/', taskController.createTask);
+router.post('/',authenticate, taskController.createTask);
 
 // Route to update a task
 router.put('/:id', taskController.updateTask);

@@ -4,8 +4,11 @@ const taskController = {};
 
 // Controller to get all tasks
 taskController.getAllTasks = async (req, res) => {
+  const userId = req.userId;
+  console.log('in get todos', userId);
+
   try {
-    const todos = await Task.find();
+    const todos = await Task.find({ userId });
     return res.status(200).json(todos);
   } catch (error) {
     return res
@@ -16,8 +19,16 @@ taskController.getAllTasks = async (req, res) => {
 
 // Controller to create a task
 taskController.createTask = async (req, res) => {
-  const { title, description, status, deadline, userId } = req.body;
-  console.log('In create todo:', { title, description, status, deadline });
+  const { title, description, status, deadline } = req.body;
+  const userId = req.userId;
+
+  console.log('In create todo:', {
+    title,
+    description,
+    status,
+    deadline,
+    userId,
+  });
 
   try {
     if (!title || !status) {
@@ -80,6 +91,7 @@ taskController.updateTask = async (req, res) => {
 // Controller to delete a task
 taskController.deleteTask = async (req, res) => {
   const { id } = req.params;
+  console.log('in delete ');
 
   try {
     const deletedTask = await Task.findByIdAndDelete(id);

@@ -35,7 +35,6 @@ exports.signup = async (req, res, next) => {
 
 // LOGIN
 exports.login = async (req, res) => {
-
   const { email, password } = req.body;
   console.log('in login', { email, password });
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import '../styles/login.css';
 import config from '../config';
@@ -7,33 +6,33 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch(`${config.baseURL}/auth/login`, {
+      const response = await fetch(`${config.baseURL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('token', data.token); // Store token
-        localStorage.setItem('userName', data.user.name);
-        // window.location.href
-        navigate('/todo-list'); // Redirect
+        toast.success(
+          data.message || 'User created successfully',
+          {
+            position: 'top-center',
+          },
+          setTimeout(() => {
+            navigate('/');
+          }, 2000)
+        );
+        // Redirect to login page
       } else {
         const errorData = await response.json();
         toast.error(errorData.message || 'Login failed', {
@@ -47,11 +46,26 @@ const Login = () => {
     }
   };
 
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <div className='login-container'>
       <form className='login-form' onSubmit={handleSubmit}>
-        <h1>LOGIN</h1>
-        <p>Please enter your login and password!</p>
+        <h1>SIGN UP</h1>
+        <p>Please create your account by filling the form below!</p>
+        <input
+          placeholder='Name'
+          value={name}
+          onChange={handleNameChange}
+          required
+        />
         <input
           type='email'
           placeholder='Email'
@@ -66,21 +80,17 @@ const Login = () => {
           onChange={handlePasswordChange}
           required
         />
-        <button type='submit'>LOGIN</button>
-        <p className='forgot-password'>Forgot password?</p>
-        <div>
-          <p className='mb-0'>
-            Don't have an account?
-            <Link to='/signup' className='text-white-50 fw-bold'>
-              Sign Up
-            </Link>
-          </p>
-        </div>
+        <button type='submit'>SIGN UP</button>
+        <p className='forgot-password'>
+          Already have an account?
+          <Link to='/' className='text-white-50 fw-bold'>
+            Login
+          </Link>
+        </p>
       </form>
-      {/* ToastContainer for toast messages */}
       <ToastContainer />
     </div>
   );
 };
 
-export default Login;
+export default Signup;
